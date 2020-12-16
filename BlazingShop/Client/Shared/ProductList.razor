@@ -1,7 +1,8 @@
 ﻿@inject IProductService ProductService
+@implements IDisposable
 
 <ul class="list-unstyled">
-    @foreach (var product in CategoryId == null ? ProductService.Products : ProductService.Products.Where(p => p.CategoryId == CategoryId))
+    @foreach (var product in ProductService.Products)
     {
         <li class="media my-3">
             <div class="media-img-wrapper mr-2">
@@ -27,11 +28,14 @@
 </ul>
 
 @code {
-    [Parameter]
-    public int? CategoryId { get; set; } = null;
 
     protected override void OnInitialized()
     {
-        ProductService.LoadProducts();
+        ProductService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ProductService.OnChange -= StateHasChanged;
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/product/{id}"
+﻿@page "/product/{id:int}"
 @inject IProductService ProductService
 
 <div class="media">
@@ -21,18 +21,13 @@
 </div>
 
 @code {
-    private Product product = null;
+    private Product product = new Product();
 
     [Parameter]
-    public string Id { get; set; }
+    public int Id { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        if (ProductService.Products == null || ProductService.Products.Count == 0)
-        {
-            ProductService.LoadProducts();
-        }
-
-        product = ProductService.Products.FirstOrDefault(p => p.Id == Int32.Parse(Id));
+        product = await ProductService.GetProduct(Id);
     }
 }
