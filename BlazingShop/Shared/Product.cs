@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ namespace BlazingShop.Shared
         public string Title { get; set; }
         public string Description { get; set; }
         public string Image { get; set; } = "https://via.placeholder.com/300x300";
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal OriginalPrice { get; set; }
         public bool IsPublic { get; set; }
         public bool IsDeleted { get; set; }
