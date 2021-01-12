@@ -8,24 +8,27 @@
     <div class="media-body">
         <h2 class="mb-0">@product.Title</h2>
         <p>@product.Description</p>
-        @if (product.Editions != null && product.Editions.Count > 0)
+        @if (product.Variants != null && product.Variants.Count > 1)
         {
             <div class="form-group">
-                <select class="form-control">
-                    @foreach (var edition in product.Editions)
+                <select class="form-control" @bind="currentEditionId">
+                    @foreach (var variant in product.Variants)
                     {
-                        <option>@edition.Name</option>
+                        <option value="@variant.EditionId">@variant.Edition.Name</option>
                     }
                 </select>
             </div>
         }
-        @if (product.OriginalPrice > product.Price)
+        @if (GetSelectedVariant() != null)
         {
-            <h6 class="text-muted original-price">$@product.OriginalPrice</h6>
+            @if (GetSelectedVariant().OriginalPrice > GetSelectedVariant().Price)
+            {
+                <h6 class="text-muted original-price">$@GetSelectedVariant().OriginalPrice</h6>
+            }
+            <h4 class="price">
+                $@GetSelectedVariant().Price
+            </h4>
         }
-        <h4 class="price">
-            $@product.Price
-        </h4>
         <button class="btn btn-primary"><i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart</button>
     </div>
 
@@ -34,11 +37,23 @@
 @code {
     private Product product = new Product();
 
+    private int currentEditionId = 1;
+
     [Parameter]
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         product = await ProductService.GetProduct(Id);
+        if (product.Variants.Count > 0)
+        {
+            currentEditionId = product.Variants[0].EditionId;
+        }
+    }
+
+    private ProductVariant GetSelectedVariant()
+    {
+        var variant = product.Variants.FirstOrDefault(v => v.EditionId == currentEditionId);
+        return variant;
     }
 }
