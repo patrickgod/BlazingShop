@@ -1,7 +1,8 @@
 ﻿@page "/"
 @page "/{categoryurl}"
 @inject ICategoryService CategoryService;
-@inject IProductService ProductService  
+@inject IProductService ProductService
+@inject ISyncLocalStorageService LocalStorage
 
 @if (category != null)
 {
@@ -10,7 +11,14 @@
 }
 else
 {
-    <h1>Welcome to Blazing Shop!</h1>
+    <AuthorizeView>
+        <NotAuthorized>
+            <h1>Welcome to Blazing Shop!</h1>
+        </NotAuthorized>
+        <Authorized>
+            <h1>Welcome back, @LocalStorage.GetItemAsString("username")!</h1>
+        </Authorized>
+    </AuthorizeView>
     <ProductList />
 }
 

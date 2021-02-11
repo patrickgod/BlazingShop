@@ -1,4 +1,6 @@
 ﻿@inject ICategoryService CategoryService
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider  
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Blazing Shop</a>
@@ -23,6 +25,21 @@
                 </NavLink>
             </li>
         }
+        <li class="dropdown-divider"></li>
+        <li class="nav-item px-3">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="login">
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Login
+                    </NavLink>
+                </NotAuthorized>
+                <Authorized>
+                    <a class="nav-link" @onclick="Logout" style="cursor: pointer">
+                        <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+                    </a>
+                </Authorized>
+            </AuthorizeView>
+        </li>
     </ul>
 </div>
 
@@ -39,5 +56,11 @@
     protected override async Task OnInitializedAsync()
     {
         await CategoryService.LoadCategories();
+    }
+
+    private async void Logout()
+    {
+        await  LocalStorage.RemoveItemAsync("username");
+        await AuthStateProvider.GetAuthenticationStateAsync();
     }
 }
