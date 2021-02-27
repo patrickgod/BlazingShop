@@ -1,6 +1,7 @@
 using BlazingShop.Server.Data;
 using BlazingShop.Server.Services.CategoryService;
 using BlazingShop.Server.Services.ProductService;
+using BlazingShop.Server.Services.StatsService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,7 @@ namespace BlazingShop.Server
             services.AddRazorPages();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStatsService, StatsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
