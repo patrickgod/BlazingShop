@@ -55,7 +55,7 @@ namespace BlazingShop.Server.Data
                     CategoryId = 1,
                     Title = "Nineteen Eighty-Four",
                     Description = "Nineteen Eighty-Four: A Novel, often published as 1984, is a dystopian social science fiction novel by English novelist George Orwell. It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final book completed in his lifetime.",
-                    Image = "https://upload.wikimedia.org/wikipedia/en/c/c3/1984first.jpg",
+                    Image = "https://upload.wikimedia.org/wikipedia/commons/c/c3/1984first.jpg",
                     DateCreated = new DateTime(2021, 1, 1)
                 },
                 new Product
