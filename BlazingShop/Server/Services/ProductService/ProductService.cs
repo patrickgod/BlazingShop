@@ -31,6 +31,11 @@ namespace BlazingShop.Server.Services.ProductService
                 .Include(p => p.Variants)
                 .ThenInclude(v => v.Edition)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
+            product.Views++;
+
+            await _context.SaveChangesAsync();
+
             return product;
         }
 

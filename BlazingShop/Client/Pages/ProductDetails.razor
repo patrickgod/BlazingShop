@@ -4,6 +4,9 @@
 @inject ILocalStorageService LocalStorage
 @inject IToastService ToastService 
 
+<div class="views">
+    <i class="oi oi-eye"></i> @product.Views.ToString("0##")
+</div>
 <div class="media">
     <div class="media-img-big-wrapper mr-2">
         <img class="media-img-big" src="@product.Image" alt="@product.Title" />

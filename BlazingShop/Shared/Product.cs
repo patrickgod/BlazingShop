@@ -20,5 +20,6 @@ namespace BlazingShop.Shared
         public List<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
         public DateTime? DateCreated { get; set; } = DateTime.Now;
         public DateTime? DateUpdated { get; set; }
+        public int Views { get; set; }
     }
 }
